@@ -277,8 +277,12 @@ async def blackjack(ctx, ready=''):
                     await ctx.send(user.name + ' lost!')
 
             # Done playing, clear the list.
-            if i == len(users_vs):
+            if i == len(users_vs) - 1:
+                for j in range(len(users_vs)):
+                    users_vs[j].outcome = None
                 users_vs.clear()
+
+
 
 
 # Lets a user hit a blackjack hand.
@@ -371,8 +375,10 @@ async def dice_vs(ctx):
             await ctx.send(users_vs[1].name + ' won! Rolled: ' +
                            str(users_vs[1].outcome) + '. Loser rolled: ' +
                            str(users_vs[0].outcome))
+
+        users_vs[0].outcome = None
+        users_vs[1].outcome = None
         users_vs.clear()
-        user.outcome = 0
     else:
         await ctx.send('Rolled: ' + str(users_vs[0].outcome))
 
